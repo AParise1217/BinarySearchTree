@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>com.parisesoftware</artifactId>
-    <groupId>binary-search-tree</groupId>
+    <artifactId>binary-search-tree</artifactId>
+    <groupId>com.parisesoftware</groupId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Binary Search Tree Comparison</name>
     <description>Implementation of the Binary Search Tree Data Structure</description>
