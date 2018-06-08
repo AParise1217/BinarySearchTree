@@ -39,7 +39,7 @@ public class Node {
      * @param parent
      * @return
      */
-	public boolean removeNode(String data, Node parent){
+	public boolean removeNode(String data, Node parent) {
 
         //if data comes before getData in alphabetical order
 		if(data.compareTo(getData()) < 0) {

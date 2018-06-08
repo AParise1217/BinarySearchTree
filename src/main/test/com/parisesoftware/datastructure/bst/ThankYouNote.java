@@ -1,6 +1,9 @@
 package com.parisesoftware.datastructure.bst;
 
-import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
+import com.parisesoftware.datastructure.linkedlist.ILinkedList;
+
+import java.util.Arrays;
+import java.util.List;
 
 /*
  * Andrew Parise
@@ -37,16 +40,16 @@ public class ThankYouNote {
 		BinarySearchTreeImpl service = new BinarySearchTreeImpl();
 		
 		//Step 2
-		String[] names = {"Daniel", "George", "Adam", "Peter", "Michael", "Jones", "Tom", "Allison", "James", "Brian"};
+		List<String> names = Arrays.asList("Daniel", "George", "Adam", "Peter", "Michael", "Jones", "Tom", "Allison", "James", "Brian");
 		for (String name : names) {
 			service.insert(name);
 		}
 		
 		//Step 3
 		service.populateTraverseLists();
-		LinkedListImpl inorderTrav = service.getInOrder();
-		LinkedListImpl preOrderTrav = service.getPreOrder();
-		LinkedListImpl postOrderTrav = service.getPostOrder();
+		ILinkedList inorderTrav = service.getInOrder();
+		ILinkedList preOrderTrav = service.getPreOrder();
+		ILinkedList postOrderTrav = service.getPostOrder();
 		
 		//Step 4
 		System.out.println("Inorder Traversal: " + inorderTrav.toString());

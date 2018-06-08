@@ -1,6 +1,6 @@
 package com.parisesoftware.datastructure.bst;
 
-import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
+import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 
 /*
  * Andrew Parise
@@ -16,7 +16,6 @@ import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 public class BinarySearchTreeImplTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		BinarySearchTreeImpl bst = new BinarySearchTreeImpl();
 		
 		//test isEmpty()
@@ -41,9 +40,9 @@ public class BinarySearchTreeImplTest {
 		
 		//test traversal functions
 		bst.populateTraverseLists();
-		LinkedListImpl inorderTrav = bst.getInOrder();
-		LinkedListImpl preOrderTrav = bst.getPreOrder();
-		LinkedListImpl postOrderTrav = bst.getPostOrder();
+		ILinkedList inorderTrav = bst.getInOrder();
+		ILinkedList preOrderTrav = bst.getPreOrder();
+		ILinkedList postOrderTrav = bst.getPostOrder();
 		
 	
 		

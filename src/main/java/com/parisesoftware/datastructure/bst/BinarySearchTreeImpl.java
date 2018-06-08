@@ -1,151 +1,189 @@
 package com.parisesoftware.datastructure.bst;
 
+import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 import com.parisesoftware.model.Node;
 
 /*
- * @author Andrew Parise
- * March 10th 2016
- * Assignment 6.1
- * Programming II
- *
- *
- * BinarySearchTreeImpl.java
- * My implementation of a binary search tree
- *
- * Assignment Overview:
- * This programming exercise introduces binary search trees.
- * The students must create all the necessary methods for the binary search trees
- * and use the binary search trees in a Java program.
- *
- * 		Edit Log:
- * 			March 11th - initial edit
- * 			March 13th - added removal function
- *
+ * @author  Andrew Parise
+ * @since   March 10th 2016
+ * @version June 7th 2018
  *
  */
-public class BinarySearchTreeImpl {
-	//init vars
-	private Node _root;
-	private LinkedListImpl _inOrder, _preOrder, _postOrder;
+public class BinarySearchTreeImpl implements IBinarySearchTree {
 
-	public BinarySearchTreeImpl(){
-		//default constructor
-		_root = null;
-		_inOrder = new LinkedListImpl();
-		_preOrder = new LinkedListImpl();
-		_postOrder = new LinkedListImpl();
+	private Node root;
+	private ILinkedList inOrder;
+    private ILinkedList preOrder;
+    private ILinkedList postOrder;
+
+    /**
+     * Default Constructor
+     */
+	public BinarySearchTreeImpl() {
+		this.root = null;
+        this.inOrder = new LinkedListImpl();
+        this.preOrder = new LinkedListImpl();
+        this.postOrder = new LinkedListImpl();
 	}
 
-	//Root get/set
-	public void setRoot(Node root){
-		_root = root;
-	}
-	public Node getRoot(){
-		return _root;
-	}
-	////////////////
-
-	public boolean isEmpty(){
-		//Checks if BST is empty, returns true if it is empty, false if it contains data
-		return (_root == null);
+    /**
+     * Checks if BST is empty, returns true if it is empty, false if it contains data
+     * @return boolean representing if the BST is empty or not
+     */
+	public boolean isEmpty() {
+		return (this.root == null);
 	}
 
-	//TRAVERSAL FUNCTIONS:
-	public void populateTraverseLists(){ //calls the three traversal functions to populate respective linked lists
-		deleteOldTraversals(); //clears data in the linked lists (if this function has already been called, it needs to reset the lists to prevent concatenating the new and old)
+    /**
+     * Calls the three traversal functions to populate respective linked lists
+     */
+	public void populateTraverseLists() {
+		deleteOldTraversals();
 		traverseInOrder();
 		traversePreOrder();
 		traversePostOrder();
 	}
-	public void traverseInOrder(){ //Design and write a method to perform an in-order traversal of a binary tree
-		//Traverses tree and returns list of nodes: LeftNode,Print, RightNode
+
+    /**
+     * Perform an in-order traversal of a binary tree
+     */
+    private void traverseInOrder() {
 		traverseInOrder(getRoot());
 	}
-	private void traverseInOrder(Node parentNode){ //recursive search
-		if(parentNode != null){
-			traverseInOrder(parentNode.getLeftNode()); //Left
-			_inOrder.insertEnd(parentNode.getData()); //Add to list
-			traverseInOrder(parentNode.getRightNode()); //Right
+
+    /**
+     * @param parentNode the node to begin the traversal from
+     */
+	private void traverseInOrder(Node parentNode) {
+		if(parentNode != null) {
+			traverseInOrder(parentNode.getLeftNode());
+			this.inOrder.insertEnd(parentNode.getData());
+			traverseInOrder(parentNode.getRightNode());
 		}
 	}
-	public LinkedListImpl getInOrder(){
-		return _inOrder;
+
+    /**
+     * @return the BST in order
+     */
+	public ILinkedList getInOrder() {
+		return this.inOrder;
 	}
-	public void deleteOldTraversals(){
-		_preOrder = new LinkedListImpl();
-		_postOrder = new LinkedListImpl();
-		_inOrder = new LinkedListImpl();
+
+    /**
+     * Cleans leftover data traversals
+     */
+    private void deleteOldTraversals() {
+		this.preOrder = new LinkedListImpl();
+        this.postOrder = new LinkedListImpl();
+        this.inOrder = new LinkedListImpl();
 
 	}
-	public void traversePreOrder(){ //Design and write a method to perform a pre-order traversal of a binary tree
-		//Traverses tree and returns list of nodes: LeftNode, RightNode, Print
+
+    /**
+     * Performs a pre-order traversal of a binary tree
+     */
+    private void traversePreOrder() {
 		traversePreOrder(getRoot());
 	}
-	private void traversePreOrder(Node parentNode){//recursive search
-		if(parentNode != null){
-			_preOrder.insertEnd(parentNode.getData()); //Add to list
-			traversePreOrder(parentNode.getLeftNode()); //Left
-			traversePreOrder(parentNode.getRightNode()); //Right
+
+    /**
+     * @param parentNode the parent node to begin the search from
+     */
+	private void traversePreOrder(Node parentNode) {
+		if(parentNode != null) {
+			this.preOrder.insertEnd(parentNode.getData());
+			traversePreOrder(parentNode.getLeftNode());
+			traversePreOrder(parentNode.getRightNode());
 		}
 	}
-	public LinkedListImpl getPreOrder(){
-		return _preOrder;
+
+    /**
+     * @return the BST in pre order
+     */
+	public ILinkedList getPreOrder() {
+		return this.preOrder;
 	}
 
-	public void traversePostOrder(){ //Design and write a method to perform a post-order traversal of a binary tree
-		//Traverses tree and returns list of nodes: Print, LeftNode, RightNode
+    /**
+     * Traverses tree and returns list of nodes: Print, LeftNode, RightNode
+     */
+    private void traversePostOrder() {
 		traversePostOrder(getRoot());
 	}
-	private void traversePostOrder(Node parentNode){ //recursive search
-		if(parentNode != null){
-			traversePostOrder(parentNode.getLeftNode()); //Left
-			traversePostOrder(parentNode.getRightNode()); //Right
-			_postOrder.insertEnd(parentNode.getData()); //Add to list
-		}
-	}
-	public LinkedListImpl getPostOrder(){
-		return _postOrder;
-	}
-	////////////////////////
 
-	//INSERTION FUNCTIONS:
-	private Node insert(Node node, String data){
-		//Recursively insert data into the Tree
-		if(node == null){
+    /**
+     * @param parentNode the parent node to begin the search from
+     */
+	private void traversePostOrder(Node parentNode) {
+		if(parentNode != null){
+			traversePostOrder(parentNode.getLeftNode());
+			traversePostOrder(parentNode.getRightNode());
+			this.postOrder.insertEnd(parentNode.getData());
+		}
+	}
+
+    /**
+     * @return  the BST in post order
+     */
+	public ILinkedList getPostOrder() {
+		return this.postOrder;
+	}
+
+    /**
+     * @param node  node to be inserted
+     * @param data  if node is null, creates a new node from this data
+     * @return
+     *
+     * Recursively insert data into the Tree
+     */
+	private Node insert(Node node, String data) {
+		if(node == null) {
 			node = new Node(data);
-		}
-		else if((data.compareTo(node.getData()) <= 0)){ //if data comes before, or is same as node.Data in alphabetical order
+		} else if((data.compareTo(node.getData()) <= 0)) { //if data comes before, or is same as node.Data in alphabetical order
 			node.setLeftNode(insert(node.getLeftNode(), data));
-		}
-		else{
+		} else {
 			node.setRightNode(insert(node.getRightNode(), data));
 		}
 		return node;
 	}
-	public void insert(String data){ //Design and write a method to build a binary tree
+
+    /**
+     * @param data  information to be stored in the bst
+     */
+	public void insert(String data) {
 		setRoot(insert(getRoot(), data));
 	}
-	///////////////////////
 
-	//DELETION FUNCTIONS:
-	public boolean removeNode(String data){
-		if(getRoot() == null){
-			return false;
-		}
-		else{
-			if(getRoot().getData() == data){
+    /**
+     * @param data  data of the node to be removed
+     *
+     * Deletion function to remove node from BST
+     */
+	public void removeNode(String data) {
+        if (getRoot() != null) {
+			if(getRoot().getData().equals(data)) {
 				Node tempNode = new Node();
 				tempNode.setLeftNode(getRoot());
-				boolean retVal = getRoot().removeNode(data, tempNode);
+				getRoot().removeNode(data, tempNode);
 				setRoot(tempNode.getLeftNode());
-				return retVal;
-			}
-			else{
-				return getRoot().removeNode(data, null);
-			}
+            } else {
+                getRoot().removeNode(data, null);
+            }
 		}
-	}
+    }
 
-	/////////////////////
+    /**
+     * @param root node to be the BSTs root
+     */
+    public void setRoot(Node root) {
+        this.root = root;
+    }
+
+    /**
+     * @return the root node
+     */
+    public Node getRoot() {
+        return root;
+    }
 }
