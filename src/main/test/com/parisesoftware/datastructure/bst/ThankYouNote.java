@@ -5,7 +5,7 @@ import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 import java.util.Arrays;
 import java.util.List;
 
-/*
+/**
  * Andrew Parise
  * March 10th 2016
  * Assignment 6.1

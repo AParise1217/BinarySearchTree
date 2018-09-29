@@ -1,7 +1,4 @@
 package com.parisesoftware.datastructure.linkedlist;
-/**
- * 
- */
 
 import com.parisesoftware.model.Node;
 
@@ -60,13 +57,15 @@ import com.parisesoftware.model.Node;
  * 			
  * 		
  */
-
 public class LinkedListImpl implements ILinkedList {
-	public Node head;
-	public static int numElements;
-	
+
+	private Node head;
+	private int numElements;
+
+    /**
+     * Default Constructor
+     */
 	public LinkedListImpl(){
-		//constructor
 		head = null;
 		numElements = 0;
 	}
@@ -106,7 +105,6 @@ public class LinkedListImpl implements ILinkedList {
 		}
 	}
 
-	
 	public void insertIndex(String info, int index){
 		//creates node, then adds it to a specific index
 		Node newNode = new Node(null, info);
@@ -127,7 +125,6 @@ public class LinkedListImpl implements ILinkedList {
 		}
 	}
 
-
 	private void incNumElements(){
 		//Increments the number of elements in the linkedlist
 		numElements++;
@@ -141,7 +138,6 @@ public class LinkedListImpl implements ILinkedList {
 		//returns the total number of elements
 		return numElements;
 	}
-	
 
 	public boolean removeNode(int index){
 		//removes the node at given index, 
@@ -168,11 +164,11 @@ public class LinkedListImpl implements ILinkedList {
 				return false; //null pointer
 			}
 		}
-		
 	}
+
 	public Node search(int index){
 		//returns the node at the index location
-		Node curNode = null;
+		Node curNode;
 		if(index <= 0){ //can't be an index of zero or less
 			return null;
 		}
@@ -191,33 +187,29 @@ public class LinkedListImpl implements ILinkedList {
 				return curNode;
 			}
 		}
-		return curNode;
+		return null;
 	}
+
 	public boolean isEmpty(){
-		if(head == null){
-			//list is empty
-			return true;
-		}
-		return false;
-	}
-		
+        return head == null;
+    }
 	
 	public String toString(){
 		//returns the elements of the linked list
 		
-		String retVal = "";
+		StringBuilder retVal = new StringBuilder();
 		
 		if(head != null){ //suppress null pointer exception
 			Node curNode = head;
 			while(curNode != null){
-				retVal += "[" + curNode.getData() + "]";
+				retVal.append("[").append(curNode.getData()).append("]");
 				curNode = curNode.getLink();
 			}
 		}
 		
-		return retVal;
-		
+		return retVal.toString();
 	}
+
 	public Node deleteHead(){
 		//removes the first node and returns it
 		Node retNode = head;
@@ -234,8 +226,5 @@ public class LinkedListImpl implements ILinkedList {
 	public Node getTail(){
 		return search(numElements - 1); //returns the tail (element in the last index)
 	}
-	
-	
-
 
 }
