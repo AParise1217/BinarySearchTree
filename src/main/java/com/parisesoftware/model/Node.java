@@ -1,6 +1,6 @@
 package com.parisesoftware.model;
 
-/*
+/**
  * @author Andrew Parise
  * @since March 10th, 2016
  * @version 29 May 2018

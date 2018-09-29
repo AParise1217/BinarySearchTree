@@ -3,8 +3,12 @@ package com.parisesoftware.datastructure.bst;
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 import com.parisesoftware.model.Node;
+import com.parisesoftware.traversal.ITraversalStrategy;
+import com.parisesoftware.traversal.InOrderTraversalStrategy;
+import com.parisesoftware.traversal.PostOrderTraversalStrategy;
+import com.parisesoftware.traversal.PreOrderTraversalStrategy;
 
-/*
+/**
  * @author  Andrew Parise
  * @since   March 10th 2016
  * @version June 7th 2018
@@ -20,7 +24,7 @@ public class BinarySearchTreeImpl implements IBinarySearchTree {
     /**
      * Default Constructor
      */
-	public BinarySearchTreeImpl() {
+	BinarySearchTreeImpl() {
 		this.root = null;
         this.inOrder = new LinkedListImpl();
         this.preOrder = new LinkedListImpl();
@@ -49,18 +53,9 @@ public class BinarySearchTreeImpl implements IBinarySearchTree {
      * Perform an in-order traversal of a binary tree
      */
     private void traverseInOrder() {
-		traverseInOrder(getRoot());
-	}
-
-    /**
-     * @param parentNode the node to begin the traversal from
-     */
-	private void traverseInOrder(Node parentNode) {
-		if(parentNode != null) {
-			traverseInOrder(parentNode.getLeftNode());
-			this.inOrder.insertEnd(parentNode.getData());
-			traverseInOrder(parentNode.getRightNode());
-		}
+		ITraversalStrategy inOrderTraversal = new InOrderTraversalStrategy();
+		inOrderTraversal.traverse(getRoot());
+		this.inOrder = inOrderTraversal.getTraversalPath();
 	}
 
     /**
@@ -84,18 +79,9 @@ public class BinarySearchTreeImpl implements IBinarySearchTree {
      * Performs a pre-order traversal of a binary tree
      */
     private void traversePreOrder() {
-		traversePreOrder(getRoot());
-	}
-
-    /**
-     * @param parentNode the parent node to begin the search from
-     */
-	private void traversePreOrder(Node parentNode) {
-		if(parentNode != null) {
-			this.preOrder.insertEnd(parentNode.getData());
-			traversePreOrder(parentNode.getLeftNode());
-			traversePreOrder(parentNode.getRightNode());
-		}
+        ITraversalStrategy preOrderTraversal = new PreOrderTraversalStrategy();
+        preOrderTraversal.traverse(getRoot());
+        this.preOrder = preOrderTraversal.getTraversalPath();
 	}
 
     /**
@@ -109,18 +95,9 @@ public class BinarySearchTreeImpl implements IBinarySearchTree {
      * Traverses tree and returns list of nodes: Print, LeftNode, RightNode
      */
     private void traversePostOrder() {
-		traversePostOrder(getRoot());
-	}
-
-    /**
-     * @param parentNode the parent node to begin the search from
-     */
-	private void traversePostOrder(Node parentNode) {
-		if(parentNode != null){
-			traversePostOrder(parentNode.getLeftNode());
-			traversePostOrder(parentNode.getRightNode());
-			this.postOrder.insertEnd(parentNode.getData());
-		}
+        ITraversalStrategy postOrderTraversal = new PostOrderTraversalStrategy();
+        postOrderTraversal.traverse(getRoot());
+        this.postOrder = postOrderTraversal.getTraversalPath();
 	}
 
     /**
@@ -140,7 +117,8 @@ public class BinarySearchTreeImpl implements IBinarySearchTree {
 	private Node insert(Node node, String data) {
 		if(node == null) {
 			node = new Node(data);
-		} else if((data.compareTo(node.getData()) <= 0)) { //if data comes before, or is same as node.Data in alphabetical order
+		} else if((data.compareTo(node.getData()) <= 0)) {
+		    //if data comes before, or is same as node.Data in alphabetical order
 			node.setLeftNode(insert(node.getLeftNode(), data));
 		} else {
 			node.setRightNode(insert(node.getRightNode(), data));

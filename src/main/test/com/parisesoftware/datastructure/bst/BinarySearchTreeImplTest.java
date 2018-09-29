@@ -1,63 +1,123 @@
 package com.parisesoftware.datastructure.bst;
 
-import com.parisesoftware.datastructure.linkedlist.ILinkedList;
+import com.parisesoftware.model.Node;
+import org.junit.Test;
 
-/*
- * Andrew Parise
- * March 10th 2016
- * Assignment 6.1
- * Programming II
- * 
- * BinarySearchTreeImplTest.java
- * 
- * Test Class to test the functionality of the BinarySearchTreeImpl.java methods
- * 
- */
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+
 public class BinarySearchTreeImplTest {
 
-	public static void main(String[] args) {
-		BinarySearchTreeImpl bst = new BinarySearchTreeImpl();
-		
-		//test isEmpty()
-		if(bst.isEmpty()){
-			System.out.println("The BST is empty");
-		}
-		
-		//test insert()
-		bst.insert("Boogie");
-		bst.insert("Dog");
-		bst.insert("Road");
-		bst.insert("Ocean");
-		bst.insert("Apart");
-		bst.insert("Begin");
-		bst.insert("Wings");
-		bst.insert("Haywire");
-		
-		if(!bst.isEmpty()){
-			System.out.println("The BST is not empty.");
-		}
-		
-		
-		//test traversal functions
-		bst.populateTraverseLists();
-		ILinkedList inorderTrav = bst.getInOrder();
-		ILinkedList preOrderTrav = bst.getPreOrder();
-		ILinkedList postOrderTrav = bst.getPostOrder();
-		
-	
-		
-		System.out.println("Inorder Traversal: " + inorderTrav.toString());
-		System.out.println("PreOrder Traversal: " + preOrderTrav.toString());
-		System.out.println("PostOrder Traversal: " + postOrderTrav.toString());
-		
-		//Test removal functions
-		bst.removeNode("Apart");
-		bst.removeNode("Ocean");
-		
-		
-		bst.populateTraverseLists();
-		
-		System.out.println("New List (post-order): " + bst.getPostOrder());
-	}
+
+    @Test
+    public void isEmptyShouldReturnTrueWhenNoNodes() {
+        // Method invocation
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+
+        //Verify
+        assertEquals(true, testBST.isEmpty());
+    }
+
+    @Test
+    public void isEmptyShouldReturnFalseWhenThereAreNodes() {
+
+        // Method invocation
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert("Some Test Data");
+        testBST.insert("Some More Test Data");
+
+        //Verify
+        assertEquals(false, testBST.isEmpty());
+    }
+
+    @Test
+    public void insertShouldAddDataToBSTAsRoot() {
+        //Setup test data
+        String testString = "This is a test.";
+
+        // Method invocation
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert(testString);
+
+        //Verify
+        assertNotEquals(null, testBST.getRoot());
+        assertEquals(testString, testBST.getRoot().getData());
+    }
+
+    @Test
+    public void insertShouldAddKeepInitialDataSetAsRoot() {
+        //Setup test data
+        String testString1 = "Lore";
+        String testString2 = "Data";
+
+        // Method invocation
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert(testString1);
+        testBST.insert(testString2);
+
+        //Verify
+        assertNotEquals(null, testBST.getRoot());
+        assertEquals(testString1, testBST.getRoot().getData());
+    }
+
+    @Test
+    public void removeNodeShouldUpdateRoot() {
+        //Setup test data
+        String testString1 = "Warf";
+        String testString2 = "Yarr";
+
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert(testString1);
+        testBST.insert(testString2);
+
+        // Method invocation
+        testBST.removeNode(testString1);
+
+        //Verify
+        assertNotEquals(null, testBST.getRoot());
+        assertEquals(testString2, testBST.getRoot().getData());
+    }
+
+    @Test
+    public void setRootShouldUpdateRoot() {
+        //Setup test data
+        String testString1 = "TOS";
+        String testString2 = "TNG";
+
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert(testString1);
+
+        // Method invocation
+        testBST.setRoot(new Node(testString2));
+
+        //Verify
+        assertNotEquals(null, testBST.getRoot());
+        assertEquals(testString2, testBST.getRoot().getData());
+    }
+
+    @Test
+    public void removeNodeShouldRemoveRootWithOnlyOneNode() {
+        //Setup test data
+        String testString1 = "Picard";
+
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        testBST.insert(testString1);
+
+        // Method invocation
+        testBST.removeNode(testString1);
+
+        //Verify
+        assertEquals(null, testBST.getRoot());
+    }
+
+    @Test
+    public void constructorShouldSetRootAsNull() {
+        // Method invocation
+        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+
+        //Verify
+        assertEquals(null, testBST.getRoot());
+    }
 
 }
