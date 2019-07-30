@@ -5,27 +5,30 @@ import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 import com.parisesoftware.model.Node;
 
 /**
+ * {@inheritDoc}
  * Traversal Algorithm for "Pre Order" BST
+ *
+ * @version 1.0.0
+ * @since 1.0.0
  */
-public class PreOrderTraversalStrategy implements ITraversalStrategy {
+public class PreOrderTraversalStrategy<T extends Comparable<T>> implements ITraversalStrategy<T> {
 
-    private ILinkedList linkedList;
+    private ILinkedList<T> linkedList;
 
     public PreOrderTraversalStrategy() {
-        this.linkedList = new LinkedListImpl();
+        this.linkedList = new LinkedListImpl<>();
     }
 
-    public void traverse(Node parentNode) {
-        if(parentNode != null) {
+    public void traverse(Node<T> parentNode) {
+        if (parentNode != null) {
             this.linkedList.insertEnd(parentNode.getData());
             traverse(parentNode.getLeftNode());
             traverse(parentNode.getRightNode());
         }
     }
 
-    public ILinkedList getTraversalPath() {
+    public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }
-
 
 }

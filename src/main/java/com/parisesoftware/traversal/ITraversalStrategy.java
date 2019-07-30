@@ -5,11 +5,14 @@ import com.parisesoftware.model.Node;
 
 /**
  * Abstraction for BST Traversal Strategies
+ *
+ * @version 1.0.0
+ * @since 1.0.0
  */
-public interface ITraversalStrategy {
+public interface ITraversalStrategy<T extends Comparable<T>> {
 
-    void traverse(Node parentNode);
+    void traverse(Node<T> parentNode);
 
-    ILinkedList getTraversalPath();
+    ILinkedList<T> getTraversalPath();
 
 }

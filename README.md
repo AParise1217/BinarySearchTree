@@ -3,11 +3,7 @@ JAVA implementation of the binary search tree data structure.
 
 # Project Setup
 
-1) Git Clone the LinkedList project from either `git clone git@bitbucket.org:apariseugrad/linkedlist.git`
-or `git@github.com:AParise1217/LinkedList.git`
-2) From the project root, run `mvn clean install`. This will add the jar to your local m2
-3) From this project root, run `mvn clean install`
-
+1) From the project root, run `mvn clean install`
 
 
 # Initial Project Log
@@ -26,5 +22,23 @@ Project Completed on March 13th 2016
   		Edit Log:
   			March 11th - initial edit
   			March 13th - added removal function
-  
-  
+
+
+# Releasing to Maven Central
+## Performing a Release Deployment
+*Note: This must occur prior to the Release Deployment!*
+
+Make sure the "release-sign-artifacts" and "ossrh" 
+    Maven profiles are active.
+
+1) `mvn clean`
+2) `mvn release:prepare -Possrh,release-sign-artifacts`
+3) `mvn release:perform -Possrh,release-sign-artifacts`
+
+* await the release process to finish *
+
+4) `git push --tags`
+5) `git push origin master`
+
+## Updating the Release Version
+1) `mvn versions:set -DnewVersion=1.2.3`

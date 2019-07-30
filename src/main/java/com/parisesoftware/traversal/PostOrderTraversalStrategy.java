@@ -5,25 +5,33 @@ import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 import com.parisesoftware.model.Node;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Traversal Algorithm for "Post Order" BST
+ *
+ * @version 1.0.0
+ * @since 1.0.0
  */
-public class PostOrderTraversalStrategy implements ITraversalStrategy {
+public class PostOrderTraversalStrategy<T extends Comparable<T>> implements ITraversalStrategy<T> {
 
-    private ILinkedList linkedList;
+    private ILinkedList<T> linkedList;
 
     public PostOrderTraversalStrategy() {
-        this.linkedList = new LinkedListImpl();
+        this.linkedList = new LinkedListImpl<>();
     }
 
-    public void traverse(Node parentNode) {
-        if(parentNode != null) {
+    /**
+     * {@inheritDoc}
+     */
+    public void traverse(Node<T> parentNode) {
+        if (parentNode != null) {
             traverse(parentNode.getLeftNode());
             traverse(parentNode.getRightNode());
             this.linkedList.insertEnd(parentNode.getData());
         }
     }
 
-    public ILinkedList getTraversalPath() {
+    public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }
 

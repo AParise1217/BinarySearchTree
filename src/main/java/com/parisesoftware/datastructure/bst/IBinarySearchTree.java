@@ -3,22 +3,31 @@ package com.parisesoftware.datastructure.bst;
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 import com.parisesoftware.model.Node;
 
-public interface IBinarySearchTree {
+/**
+ * Binary Search Tree
+ * <p>
+ *     Core abstraction for the Binary Search Tree Data Structure
+ * </p>
+ *
+ * @version 1.0.0
+ * @since 1.0.0
+ */
+public interface IBinarySearchTree<T extends Comparable<T>> {
 
     boolean isEmpty();
 
     void populateTraverseLists();
 
-    ILinkedList getPreOrder();
+    ILinkedList<T> getPreOrder();
 
-    ILinkedList getPostOrder();
+    ILinkedList<T> getPostOrder();
 
-    void insert(String data);
+    void insert(T data);
 
-    void removeNode(String data);
+    void removeNode(T data);
 
-    void setRoot(Node root);
+    void setRoot(Node<T> root);
 
-    Node getRoot();
+    Node<T> getRoot();
 
 }

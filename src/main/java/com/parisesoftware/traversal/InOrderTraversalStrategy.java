@@ -5,25 +5,31 @@ import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
 import com.parisesoftware.model.Node;
 
 /**
+ * {@inheritDoc}
  * Traversal Algorithm for "In Order" BST
  */
-public class InOrderTraversalStrategy implements ITraversalStrategy {
+public class InOrderTraversalStrategy<T extends Comparable<T>> implements ITraversalStrategy<T> {
 
-    private ILinkedList linkedList;
+    private ILinkedList<T> linkedList;
 
     public InOrderTraversalStrategy() {
-        this.linkedList = new LinkedListImpl();
+        this.linkedList = new LinkedListImpl<>();
     }
 
-    public void traverse(Node parentNode) {
-        if(parentNode != null) {
+    /**
+     * {@inheritDoc}
+     *
+     * @param parentNode to begin the traversal with
+     */
+    public void traverse(Node<T> parentNode) {
+        if (parentNode != null) {
             traverse(parentNode.getLeftNode());
             this.linkedList.insertEnd(parentNode.getData());
             traverse(parentNode.getRightNode());
         }
     }
 
-    public ILinkedList getTraversalPath() {
+    public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }
 
