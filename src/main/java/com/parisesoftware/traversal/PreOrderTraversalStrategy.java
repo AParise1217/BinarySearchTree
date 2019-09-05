@@ -19,6 +19,10 @@ public class PreOrderTraversalStrategy<T extends Comparable<T>> implements ITrav
         this.linkedList = new LinkedListImpl<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void traverse(Node<T> parentNode) {
         if (parentNode != null) {
             this.linkedList.insertEnd(parentNode.getData());
@@ -27,6 +31,10 @@ public class PreOrderTraversalStrategy<T extends Comparable<T>> implements ITrav
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }

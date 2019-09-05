@@ -14,15 +14,18 @@ import com.parisesoftware.traversal.PreOrderTraversalStrategy;
  * Default Implementation of {@link IBinarySearchTree}
  * </p>
  *
- * @author Andrew Parise
+ * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
  * @version 1.0.0
  * @since 1.0.0
  */
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySearchTree<T> {
 
     private Node<T> root;
+
     private ILinkedList<T> inOrder;
+
     private ILinkedList<T> preOrder;
+
     private ILinkedList<T> postOrder;
 
     /**
@@ -36,17 +39,17 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
-     * Checks if BST is empty, returns true if it is empty, false if it contains data
-     *
-     * @return boolean representing if the BST is empty or not
+     * {@inheritDoc}
      */
+    @Override
     public boolean isEmpty() {
         return (this.root == null);
     }
 
     /**
-     * Calls the three traversal functions to populate respective linked lists
+     * {@inheritDoc}
      */
+    @Override
     public void populateTraverseLists() {
         deleteOldTraversals();
         traverseInOrder();
@@ -89,8 +92,9 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
-     * @return the BST in pre order
+     * {@inheritDoc}
      */
+    @Override
     public ILinkedList<T> getPreOrder() {
         return this.preOrder;
     }
@@ -105,8 +109,9 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
-     * @return the BST in post order
+     * {@inheritDoc}
      */
+    @Override
     public ILinkedList<T> getPostOrder() {
         return this.postOrder;
     }
@@ -130,7 +135,6 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
 
     /**
      * {@inheritDoc}
-     * @param data information to be stored in the bst
      */
     @Override
     public void insert(T data) {
@@ -139,10 +143,8 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
 
     /**
      * {@inheritDoc}
-     * @param data data of the node to be removed
-     *             <p>
-     *             Deletion function to remove node from BST
      */
+    @Override
     public void removeNode(T data) {
         if (getRoot() != null) {
             if (getRoot().getData().equals(data)) {
@@ -157,16 +159,19 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
-     * @param root node to be the BSTs root
+     * {@inheritDoc}
      */
+    @Override
     public void setRoot(Node<T> root) {
         this.root = root;
     }
 
     /**
-     * @return the root node
+     * {@inheritDoc}
      */
+    @Override
     public Node<T> getRoot() {
-        return root;
+        return this.root;
     }
+
 }

@@ -6,11 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Andrew Parise
- * March 10th 2016
- * Assignment 6.1
- * Programming II
- * 
  * ThankYouNote.java
  * 
  * Assignment Overview:
@@ -40,7 +35,9 @@ public class ThankYouNote {
 		BinarySearchTreeImpl service = new BinarySearchTreeImpl();
 		
 		//Step 2
-		List<String> names = Arrays.asList("Daniel", "George", "Adam", "Peter", "Michael", "Jones", "Tom", "Allison", "James", "Brian");
+		List<String> names = Arrays.asList("Daniel", "George", "Adam", "Peter",
+				"Michael", "Jones", "Tom", "Allison", "James", "Brian");
+
 		for (String name : names) {
 			service.insert(name);
 		}
