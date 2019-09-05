@@ -6,6 +6,7 @@ import com.parisesoftware.model.Node;
 
 /**
  * {@inheritDoc}
+ * <p>
  * Traversal Algorithm for "In Order" BST
  */
 public class InOrderTraversalStrategy<T extends Comparable<T>> implements ITraversalStrategy<T> {
@@ -18,9 +19,8 @@ public class InOrderTraversalStrategy<T extends Comparable<T>> implements ITrave
 
     /**
      * {@inheritDoc}
-     *
-     * @param parentNode to begin the traversal with
      */
+    @Override
     public void traverse(Node<T> parentNode) {
         if (parentNode != null) {
             traverse(parentNode.getLeftNode());
@@ -29,6 +29,10 @@ public class InOrderTraversalStrategy<T extends Comparable<T>> implements ITrave
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }

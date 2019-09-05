@@ -23,6 +23,7 @@ public class PostOrderTraversalStrategy<T extends Comparable<T>> implements ITra
     /**
      * {@inheritDoc}
      */
+    @Override
     public void traverse(Node<T> parentNode) {
         if (parentNode != null) {
             traverse(parentNode.getLeftNode());
@@ -31,9 +32,12 @@ public class PostOrderTraversalStrategy<T extends Comparable<T>> implements ITra
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public ILinkedList<T> getTraversalPath() {
         return this.linkedList;
     }
-
 
 }

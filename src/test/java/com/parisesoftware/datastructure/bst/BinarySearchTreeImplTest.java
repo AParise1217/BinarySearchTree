@@ -3,12 +3,9 @@ package com.parisesoftware.datastructure.bst;
 import com.parisesoftware.model.Node;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
+import static org.junit.Assert.*;
 
 public class BinarySearchTreeImplTest {
-
 
     @Test
     public void isEmptyShouldReturnTrueWhenNoNodes() {
@@ -16,7 +13,7 @@ public class BinarySearchTreeImplTest {
         BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
 
         //Verify
-        assertEquals(true, testBST.isEmpty());
+        assertTrue(testBST.isEmpty());
     }
 
     @Test
@@ -108,7 +105,7 @@ public class BinarySearchTreeImplTest {
         testBST.removeNode(testString1);
 
         //Verify
-        assertEquals(null, testBST.getRoot());
+        assertNull(testBST.getRoot());
     }
 
     @Test
@@ -117,7 +114,7 @@ public class BinarySearchTreeImplTest {
         BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
 
         //Verify
-        assertEquals(null, testBST.getRoot());
+        assertNull(testBST.getRoot());
     }
 
 }
