@@ -2,7 +2,8 @@ package com.parisesoftware.datastructure.bst;
 
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
-import com.parisesoftware.model.Node;
+import com.parisesoftware.datastructure.model.BSTNode;
+import com.parisesoftware.datastructure.model.IBSTNode;
 import com.parisesoftware.traversal.ITraversalStrategy;
 import com.parisesoftware.traversal.InOrderTraversalStrategy;
 import com.parisesoftware.traversal.PostOrderTraversalStrategy;
@@ -15,12 +16,12 @@ import com.parisesoftware.traversal.PreOrderTraversalStrategy;
  * </p>
  *
  * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySearchTree<T> {
 
-    private Node<T> root;
+    private IBSTNode<T> root;
 
     private ILinkedList<T> inOrder;
 
@@ -117,13 +118,30 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
+     * Factory Method to encapsulate creation of new {@link IBSTNode} instances with the given data
+     * @param data to be encapsulated in the {@link IBSTNode}
+     * @return {@code IBSTNode} containing the given data
+     */
+    private IBSTNode<T> createNode(final T data) {
+        return new BSTNode<>(data);
+    }
+
+    /**
+     * Factory Method to encapsulate creation of new, empty {@link IBSTNode} instances
+     * @return {@code IBSTNode}
+     */
+    private IBSTNode<T> createEmptyNode() {
+        return new BSTNode<>();
+    }
+
+    /**
      * @param node node to be inserted
      * @param data if node is null, creates a new node from this data
      * @return Recursively insert data into the Tree
      */
-    private Node<T> insert(Node<T> node, T data) {
+    private IBSTNode<T> insert(IBSTNode<T> node, T data) {
         if (node == null) {
-            node = new Node<>(data);
+            node = createNode(data);
         } else if ((data.compareTo(node.getData()) <= 0)) {
             //if data comes before, or is same as node.Data in alphabetical order
             node.setLeftNode(insert(node.getLeftNode(), data));
@@ -148,7 +166,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     public void removeNode(T data) {
         if (getRoot() != null) {
             if (getRoot().getData().equals(data)) {
-                Node<T> tempNode = new Node<>();
+                IBSTNode<T> tempNode = createEmptyNode();
                 tempNode.setLeftNode(getRoot());
                 getRoot().removeNode(data, tempNode);
                 setRoot(tempNode.getLeftNode());
@@ -162,7 +180,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
      * {@inheritDoc}
      */
     @Override
-    public void setRoot(Node<T> root) {
+    public void setRoot(IBSTNode<T> root) {
         this.root = root;
     }
 
@@ -170,7 +188,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
      * {@inheritDoc}
      */
     @Override
-    public Node<T> getRoot() {
+    public IBSTNode<T> getRoot() {
         return this.root;
     }
 

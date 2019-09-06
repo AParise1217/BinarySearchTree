@@ -1,6 +1,6 @@
 package com.parisesoftware.datastructure.bst;
 
-import com.parisesoftware.model.Node;
+import com.parisesoftware.datastructure.model.BSTNode;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,12 +20,12 @@ public class BinarySearchTreeImplTest {
     public void isEmptyShouldReturnFalseWhenThereAreNodes() {
 
         // Method invocation
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert("Some Test Data");
         testBST.insert("Some More Test Data");
 
         //Verify
-        assertEquals(false, testBST.isEmpty());
+        assertFalse(testBST.isEmpty());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class BinarySearchTreeImplTest {
         String testString = "This is a test.";
 
         // Method invocation
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert(testString);
 
         //Verify
@@ -49,7 +49,7 @@ public class BinarySearchTreeImplTest {
         String testString2 = "Data";
 
         // Method invocation
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert(testString1);
         testBST.insert(testString2);
 
@@ -64,7 +64,7 @@ public class BinarySearchTreeImplTest {
         String testString1 = "Warf";
         String testString2 = "Yarr";
 
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert(testString1);
         testBST.insert(testString2);
 
@@ -82,11 +82,11 @@ public class BinarySearchTreeImplTest {
         String testString1 = "TOS";
         String testString2 = "TNG";
 
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert(testString1);
 
         // Method invocation
-        testBST.setRoot(new Node(testString2));
+        testBST.setRoot(new BSTNode<>(testString2));
 
         //Verify
         assertNotEquals(null, testBST.getRoot());
@@ -98,7 +98,7 @@ public class BinarySearchTreeImplTest {
         //Setup test data
         String testString1 = "Picard";
 
-        BinarySearchTreeImpl testBST = new BinarySearchTreeImpl();
+        BinarySearchTreeImpl<String> testBST = new BinarySearchTreeImpl<>();
         testBST.insert(testString1);
 
         // Method invocation

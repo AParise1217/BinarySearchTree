@@ -1,7 +1,7 @@
 package com.parisesoftware.datastructure.bst;
 
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
-import com.parisesoftware.model.Node;
+import com.parisesoftware.datastructure.model.IBSTNode;
 
 /**
  * Binary Search Tree
@@ -10,7 +10,7 @@ import com.parisesoftware.model.Node;
  * </p>
  *
  * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public interface IBinarySearchTree<T extends Comparable<T>> {
@@ -43,21 +43,21 @@ public interface IBinarySearchTree<T extends Comparable<T>> {
     void insert(T data);
 
     /**
-     * Removes the Node containing the given data from the Binary Search Tree
+     * Removes the BSTNode containing the given data from the Binary Search Tree
      * @param data to search for
      */
     void removeNode(T data);
 
     /**
-     * Sets the Binary Search Tree's Root Node
+     * Sets the Binary Search Tree's Root BSTNode
      * @param root node to be the BSTs root
      */
-    void setRoot(Node<T> root);
+    void setRoot(IBSTNode<T> root);
 
     /**
-     * Fetch the Root Node of the Binary Search Tree
-     * @return {@code Node} that is at the root of the tree
+     * Fetch the Root BSTNode of the Binary Search Tree
+     * @return {@code BSTNode} that is at the root of the tree
      */
-    Node<T> getRoot();
+    IBSTNode<T> getRoot();
 
 }
