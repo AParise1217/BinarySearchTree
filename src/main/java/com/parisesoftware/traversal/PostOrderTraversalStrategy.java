@@ -1,7 +1,7 @@
 package com.parisesoftware.traversal;
 
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
-import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
+import com.parisesoftware.datastructure.linkedlist.factory.ILinkedListFactory;
 import com.parisesoftware.datastructure.model.IBSTNode;
 
 /**
@@ -9,15 +9,15 @@ import com.parisesoftware.datastructure.model.IBSTNode;
  * Traversal Algorithm for "Post Order" BST
  *
  * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class PostOrderTraversalStrategy<T extends Comparable<T>> implements ITraversalStrategy<T> {
 
     private ILinkedList<T> linkedList;
 
-    public PostOrderTraversalStrategy() {
-        this.linkedList = new LinkedListImpl<>();
+    public PostOrderTraversalStrategy(ILinkedListFactory<T> linkedListFactory) {
+        this.linkedList = linkedListFactory.createLinkedList();
     }
 
     /**

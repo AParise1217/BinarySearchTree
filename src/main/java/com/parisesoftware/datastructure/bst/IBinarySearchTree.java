@@ -10,7 +10,7 @@ import com.parisesoftware.datastructure.model.IBSTNode;
  * </p>
  *
  * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public interface IBinarySearchTree<T extends Comparable<T>> {
@@ -30,6 +30,11 @@ public interface IBinarySearchTree<T extends Comparable<T>> {
      * @return the BST in pre order
      */
     ILinkedList<T> getPreOrder();
+
+    /**
+     * @return the BST in order
+     */
+    ILinkedList<T> getInOrder();
 
     /**
      * @return the BST in post order

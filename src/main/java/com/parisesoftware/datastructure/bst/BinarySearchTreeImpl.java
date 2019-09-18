@@ -1,9 +1,11 @@
 package com.parisesoftware.datastructure.bst;
 
+import com.google.inject.Inject;
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
-import com.parisesoftware.datastructure.linkedlist.LinkedListImpl;
+import com.parisesoftware.datastructure.linkedlist.factory.ILinkedListFactory;
 import com.parisesoftware.datastructure.model.BSTNode;
 import com.parisesoftware.datastructure.model.IBSTNode;
+import com.parisesoftware.datastructure.model.factory.IBSTNodeFactory;
 import com.parisesoftware.traversal.ITraversalStrategy;
 import com.parisesoftware.traversal.InOrderTraversalStrategy;
 import com.parisesoftware.traversal.PostOrderTraversalStrategy;
@@ -16,10 +18,13 @@ import com.parisesoftware.traversal.PreOrderTraversalStrategy;
  * </p>
  *
  * @author <a href="mailto:andrewparise1994@gmail.com">Andrew Parise</a>
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySearchTree<T> {
+
+    private final ILinkedListFactory<T> linkedListFactory;
+    private final IBSTNodeFactory<T> bstNodeFactory;
 
     private IBSTNode<T> root;
 
@@ -29,14 +34,16 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
 
     private ILinkedList<T> postOrder;
 
-    /**
-     * Default Constructor
-     */
-    BinarySearchTreeImpl() {
+    @Inject
+    public BinarySearchTreeImpl(ILinkedListFactory<T> linkedListFactory, IBSTNodeFactory<T> bstNodeFactory) {
         this.root = null;
-        this.inOrder = new LinkedListImpl<>();
-        this.preOrder = new LinkedListImpl<>();
-        this.postOrder = new LinkedListImpl<>();
+
+        this.linkedListFactory = linkedListFactory;
+        this.bstNodeFactory = bstNodeFactory;
+
+        this.inOrder = this.linkedListFactory.createLinkedList();
+        this.preOrder = this.linkedListFactory.createLinkedList();
+        this.postOrder = this.linkedListFactory.createLinkedList();
     }
 
     /**
@@ -62,7 +69,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
      * Perform an in-order traversal of a binary tree
      */
     private void traverseInOrder() {
-        ITraversalStrategy<T> inOrderTraversal = new InOrderTraversalStrategy<>();
+        ITraversalStrategy<T> inOrderTraversal = new InOrderTraversalStrategy<>(this.linkedListFactory);
         inOrderTraversal.traverse(getRoot());
         this.inOrder = inOrderTraversal.getTraversalPath();
     }
@@ -70,7 +77,8 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     /**
      * @return the BST in order
      */
-    public ILinkedList getInOrder() {
+    @Override
+    public ILinkedList<T> getInOrder() {
         return this.inOrder;
     }
 
@@ -78,16 +86,16 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
      * Cleans leftover data traversals
      */
     private void deleteOldTraversals() {
-        this.preOrder = new LinkedListImpl<>();
-        this.postOrder = new LinkedListImpl<>();
-        this.inOrder = new LinkedListImpl<>();
+        this.inOrder = this.linkedListFactory.createLinkedList();
+        this.preOrder = this.linkedListFactory.createLinkedList();
+        this.postOrder = this.linkedListFactory.createLinkedList();
     }
 
     /**
      * Performs a pre-order traversal of a binary tree
      */
     private void traversePreOrder() {
-        ITraversalStrategy<T> preOrderTraversal = new PreOrderTraversalStrategy<>();
+        ITraversalStrategy<T> preOrderTraversal = new PreOrderTraversalStrategy<>(this.linkedListFactory);
         preOrderTraversal.traverse(getRoot());
         this.preOrder = preOrderTraversal.getTraversalPath();
     }
@@ -104,7 +112,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
      * Traverses tree and returns list of nodes: Print, LeftNode, RightNode
      */
     private void traversePostOrder() {
-        ITraversalStrategy<T> postOrderTraversal = new PostOrderTraversalStrategy<>();
+        ITraversalStrategy<T> postOrderTraversal = new PostOrderTraversalStrategy<>(this.linkedListFactory);
         postOrderTraversal.traverse(getRoot());
         this.postOrder = postOrderTraversal.getTraversalPath();
     }
@@ -118,30 +126,13 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     }
 
     /**
-     * Factory Method to encapsulate creation of new {@link IBSTNode} instances with the given data
-     * @param data to be encapsulated in the {@link IBSTNode}
-     * @return {@code IBSTNode} containing the given data
-     */
-    private IBSTNode<T> createNode(final T data) {
-        return new BSTNode<>(data);
-    }
-
-    /**
-     * Factory Method to encapsulate creation of new, empty {@link IBSTNode} instances
-     * @return {@code IBSTNode}
-     */
-    private IBSTNode<T> createEmptyNode() {
-        return new BSTNode<>();
-    }
-
-    /**
      * @param node node to be inserted
      * @param data if node is null, creates a new node from this data
      * @return Recursively insert data into the Tree
      */
     private IBSTNode<T> insert(IBSTNode<T> node, T data) {
         if (node == null) {
-            node = createNode(data);
+            node = this.bstNodeFactory.createNode(data);
         } else if ((data.compareTo(node.getData()) <= 0)) {
             //if data comes before, or is same as node.Data in alphabetical order
             node.setLeftNode(insert(node.getLeftNode(), data));
@@ -166,7 +157,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements IBinarySea
     public void removeNode(T data) {
         if (getRoot() != null) {
             if (getRoot().getData().equals(data)) {
-                IBSTNode<T> tempNode = createEmptyNode();
+                IBSTNode<T> tempNode = this.bstNodeFactory.createEmptyNode();
                 tempNode.setLeftNode(getRoot());
                 getRoot().removeNode(data, tempNode);
                 setRoot(tempNode.getLeftNode());
