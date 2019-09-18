@@ -60,6 +60,9 @@
 
         <junit.version>4.11</junit.version>
         <spock.version>1.0-groovy-2.4</spock.version>
+        <guice.version>4.1.0</guice.version>
+
+        <parisesoftware-linkedlist.version>1.0.6</parisesoftware-linkedlist.version>
     </properties>
 
     <build>
@@ -197,10 +200,17 @@
     </profiles>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.parisesoftware</groupId>
             <artifactId>linkedlist</artifactId>
-            <version>1.0.3</version>
+            <version>${parisesoftware-linkedlist.version}</version>
         </dependency>
 
         <dependency>
@@ -214,6 +224,21 @@
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
             <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-guice</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For using Guice with jUnit -->
+        <dependency>
+            <groupId>com.google.acai</groupId>
+            <artifactId>acai</artifactId>
+            <version>1.1</version>
             <scope>test</scope>
         </dependency>
 

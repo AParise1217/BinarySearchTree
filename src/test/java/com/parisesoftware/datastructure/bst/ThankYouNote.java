@@ -1,5 +1,10 @@
 package com.parisesoftware.datastructure.bst;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import com.parisesoftware.datastructure.bst.factory.IBinarySearchTreeFactory;
 import com.parisesoftware.datastructure.linkedlist.ILinkedList;
 
 import java.util.Arrays;
@@ -29,10 +34,14 @@ import java.util.List;
 public class ThankYouNote {
 
 	public static void main(String[] args) {
-		// Solution to HW Assignment
-		
+
+		Injector injector = Guice.createInjector(new StringBSTTestModule());
+
+		IBinarySearchTreeFactory<String> binarySearchTreeFactory =
+				injector.getInstance(Key.get(new TypeLiteral<IBinarySearchTreeFactory<String>>() {}));
+
 		//Step 1
-		BinarySearchTreeImpl service = new BinarySearchTreeImpl();
+		IBinarySearchTree<String> service = binarySearchTreeFactory.createBST();
 		
 		//Step 2
 		List<String> names = Arrays.asList("Daniel", "George", "Adam", "Peter",
